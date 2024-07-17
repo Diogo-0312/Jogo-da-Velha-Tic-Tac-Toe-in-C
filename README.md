@@ -1,6 +1,6 @@
-# Jogo da Velha em C para Terminal
+# Jogo-da-Velha-/-Tic-Tac-Toe in C for Terminal
 
-=> Pt/Br
+**=> Pt/Br**
 
 Este é um projeto inicial de um jogo da velha desenvolvido em linguagem C, criado como parte do meu aprendizado pessoal em programação. O objetivo principal foi explorar conceitos básicos como funções, loops e estruturas de controle.
 
@@ -17,10 +17,7 @@ No futuro, planejo:
 
 Este projeto continua sendo um trabalho em progresso à medida que continuo a aprender e aprimorar minhas habilidades em programação.
 
-========================================================================================================================================================================================================================================================
-# Tic-Tac-Toe in C for Terminal
-
-=> English
+**=> English**
 
 This is an initial project of Tic-Tac-Toe developed in C language, created as part of my personal learning journey in programming. The main goal was to explore basic concepts such as functions, loops, and control structures.
 
@@ -35,4 +32,4 @@ In the future, I plan to:
 - Create a more intuitive and user-friendly graphical interface.
 - Expand functionalities such as scoring and additional game modes.
 
-This project remains a work in progress as I continue to learn and enhance my programming skills
+This project remains a work in progress as I continue to learn and enhance my programming skills.
