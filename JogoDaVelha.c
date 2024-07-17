@@ -1,0 +1,196 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+char tabuleiro[3][3];
+int escolha_menu;
+int rodada;
+char jogador_1[50] = {"Jogador 1"};
+char jogador_2[50] = {"Jogador 2"};
+char vencedor[50];
+int ganhou = 0;
+
+void ganhador(int ganhou);
+void zerar_tabuleiro(char tabuleiro[3][3]);
+int verificador(char verificar[3][3]);
+int jogo(int rodada);
+void mudar_nome();
+void exibir_tabuleiro(char tabuleiro[3][3]);
+int menu(int escolha_menu);
+void vez_1();
+void vez_2();
+
+void ganhador(int ganhou) {
+
+    if (rodada % 2 != 0) {
+        strcpy(vencedor, jogador_1);
+    } else {
+        strcpy(vencedor, jogador_2);
+    }
+
+    exibir_tabuleiro(tabuleiro);
+    printf("\n\n===========================================================");
+    printf("\n\n\t▂ ▃ ▄ ▅ ▆ ▇ █ ▓ ▒ ░ GANHADOR ░ ▒ ▓ █ ▇ ▆ ▅ ▄ ▃ ▂\n");
+    printf("\n\t▂ ▃ ▄ ▅ ▆ ▇ █ ▓ ▒ ░ %s ░ ▒ ▓ █ ▇ ▆ ▅ ▄ ▃ ▂\n\n",vencedor);
+    
+    printf("\n\t!!!\tParabéns %s\t!!!\n", vencedor);
+    printf("\n\n============================================================");
+
+}                                //Função para mostrar ganhador
+
+void zerar_tabuleiro(char tabuleiro[3][3]) {
+    int i, j;
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            tabuleiro[i][j] = ' ';
+        }
+    }
+}               //Função para zerar o tabuleiro
+
+int verificador(char verificar[3][3]) {
+    if ((tabuleiro[0][0] == 'X' && tabuleiro[0][1] == 'X' && tabuleiro[0][2] == 'X') ||
+        (tabuleiro[1][0] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[1][2] == 'X') ||
+        (tabuleiro[2][0] == 'X' && tabuleiro[2][1] == 'X' && tabuleiro[2][2] == 'X') ||
+        (tabuleiro[0][0] == 'X' && tabuleiro[1][0] == 'X' && tabuleiro[2][0] == 'X') ||
+        (tabuleiro[0][1] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][1] == 'X') ||
+        (tabuleiro[0][2] == 'X' && tabuleiro[1][2] == 'X' && tabuleiro[2][2] == 'X') ||
+        (tabuleiro[0][0] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][2] == 'X') ||
+        (tabuleiro[0][2] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][0] == 'X')) {
+        ganhou++;
+        ganhador(ganhou);
+        return 1;
+    } else if ((tabuleiro[0][0] == 'O' && tabuleiro[0][1] == 'O' && tabuleiro[0][2] == 'O') ||
+               (tabuleiro[1][0] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[1][2] == 'O') ||
+               (tabuleiro[2][0] == 'O' && tabuleiro[2][1] == 'O' && tabuleiro[2][2] == 'O') ||
+               (tabuleiro[0][0] == 'O' && tabuleiro[1][0] == 'O' && tabuleiro[2][0] == 'O') ||
+               (tabuleiro[0][1] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][1] == 'O') ||
+               (tabuleiro[0][2] == 'O' && tabuleiro[1][2] == 'O' && tabuleiro[2][2] == 'O') ||
+               (tabuleiro[0][0] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][2] == 'O') ||
+               (tabuleiro[0][2] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][0] == 'O')) {
+        ganhou++;
+        ganhador(ganhou);
+        return 1;
+    } else {
+        return 0;
+    }
+}                   // Função para verificar seuqeucia no tabuleiro
+
+int jogo(int rodada) {
+    for (rodada = 0; rodada < 9 && ganhou == 0; rodada++) {
+        if (rodada % 2 == 0) {
+            vez_1();
+        } else {
+            vez_2();
+        }
+    }
+
+    if (ganhou == 0) {
+        printf("\n\n\t= = = = EMPATE = = = =\n");
+    }
+
+    rodada = 0;
+    zerar_tabuleiro(tabuleiro);
+    menu(escolha_menu);
+}                                    //Função para seguir a linha de tempo do jogo
+
+void mudar_nome() {
+    printf("\t= = = = OPÇÕES = = = =\n");
+
+    
+        printf("\n1. Modificar nome do Jogador 1\n\n\tAtual : %s\n\tNovo : ", jogador_1);
+        scanf("%s", jogador_1);
+
+        printf("\n2. Modificar nome do Jogador 2\n\n\tAtual : %s\n\tNovo : ", jogador_2);
+        scanf("%s", jogador_2);
+
+        printf("\n\n");
+    
+        menu(escolha_menu);
+    
+}                                     //Função para personalizar nomes dos jogadores
+
+void exibir_tabuleiro(char tabuleiro[3][3]) {
+    printf("\n\n     C0  C1  C2\n");
+    printf("\nL0  | %c | %c | %c |\n", tabuleiro[0][0], tabuleiro[0][1], tabuleiro[0][2]);
+    printf("    |- -+- -+- -|\n");
+    printf("L1  | %c | %c | %c |\n", tabuleiro[1][0], tabuleiro[1][1], tabuleiro[1][2]);
+    printf("    |- -+- -+- -|\n");
+    printf("L2  | %c | %c | %c |\n", tabuleiro[2][0], tabuleiro[2][1], tabuleiro[2][2]);
+}              //Função para Exibir o tabuleiro
+
+int menu(int escolha_menu) {
+    
+    exibir_tabuleiro(tabuleiro);
+    printf("\n\t= = = JOGO DA VELHA = = =\n");
+
+    printf("\n\t1. Jogar\n\t2. Sair\n\t0. Mudar nomes\n\n");
+    scanf("%d", &escolha_menu);
+
+    //do {
+    
+        switch (escolha_menu) {
+            case 1:
+                jogo(rodada);
+                break;
+
+            case 2:
+                break;
+
+            case 0:
+                mudar_nome();
+                break;
+
+            default:
+                printf("\nOpção Inválida.\n");
+        }
+
+    //} while (escolha_menu != 2);
+
+}                              //Função para menu
+
+void vez_1() {
+    int l, c;
+
+    do {
+        printf("\n\n==========>%s\n\ninsira linha (L) :", jogador_1);
+        scanf("%d", &l);
+        printf("\nEnsira coluna (C) :");
+        scanf("%d", &c);
+    } while (tabuleiro[l][c] == 'O' || tabuleiro[l][c] == 'X');
+
+    tabuleiro[l][c] = 'X';
+
+    exibir_tabuleiro(tabuleiro);
+
+    if (verificador(tabuleiro) == 1) {
+        ganhou++;
+    }
+    
+}                                            //Função para vez do jogador 1
+
+void vez_2() {
+    int l, c;
+
+    do {
+        printf("\n\n==========>%s\n\ninsira linha (L) :", jogador_2);
+        scanf("%d", &l);
+        printf("\nEnsira a Coluna (C) :");
+        scanf("%d",&c);
+
+    } while (tabuleiro[l][c] == 'O' || tabuleiro[l][c] == 'X');
+
+    tabuleiro[l][c] = 'O';
+
+    exibir_tabuleiro(tabuleiro);
+
+    if (verificador(tabuleiro) == 1) {
+        ganhou++;
+    }
+    
+}                                            //Função para vez do Jogador 2
+
+int main() {
+    zerar_tabuleiro(tabuleiro);
+    menu(escolha_menu);
+    return 0;
+}                                //Função main
